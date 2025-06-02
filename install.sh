@@ -1,4 +1,5 @@
 #!/bin/bash
+export PATH="$HOME/.local/bin:$PATH"
 
 # This script automates the process of downloading the SimpleArchISO
 # and flashing it to a USB drive on an Arch Linux system.
@@ -8,13 +9,9 @@
 #          Proceed with extreme caution.
 
 # --- Configuration ---
-GDRIVE_SCRIPT_REPO="https://github.com/rainbownx/Google-drive-install-script.git"
-GDRIVE_SCRIPT_NAME="download-gdrive.py"
-SIMPLE_ARCH_ISO_LINK="https://drive.google.com/file/d/1IcbAk4yFh9VodGMuYMKWUhMA6tBjUSfc/view?usp=sharing"
+SIMPLE_ARCH_ISO_LINK="1IcbAk4yFh9VodGMuYMKWUhMA6tBjUSfc"
 TEMP_DIR="/tmp/simplearch_installer_temp"
 ISO_DOWNLOAD_PATH="${TEMP_DIR}/simplearch.iso"
-GDRIVE_SCRIPT_PATH="${TEMP_DIR}/${GDRIVE_SCRIPT_NAME}"
-
 # --- Functions ---
 
 # Function to display messages
@@ -64,29 +61,20 @@ fi
 sudo pacman -Syu --noconfirm git python python-requests || error_exit "Failed to install core prerequisites."
 log "Prerequisites installed/updated."
 
-# --- Step 2: Download the Google Drive Download Script ---
-log "Step 2: Cloning the Google Drive download script repository"
-
-GDRIVE_REPO_CLONE_DIR="${TEMP_DIR}/Google-drive-install-script"
-git clone "$GDRIVE_SCRIPT_REPO" "$GDRIVE_REPO_CLONE_DIR" || error_exit "Failed to clone Google Drive script repository."
 
 # Copy the script to the temp directory
-cp "${GDRIVE_REPO_CLONE_DIR}/${GDRIVE_SCRIPT_NAME}" "$GDRIVE_SCRIPT_PATH" || error_exit "Failed to copy $GDRIVE_SCRIPT_NAME."
-log "Google Drive download script downloaded to $GDRIVE_SCRIPT_PATH"
+#log "Google Drive download script downloaded to $GDRIVE_SCRIPT_PATH"
 
 # --- Step 3: Download the SimpleArchISO ---
-log "Step 3: Downloading the SimpleArchISO from Google Drive"
+log "Step 3: Downloading the SimpleArchISO from Google Drive using gdown"
 
-# Ensure the script is executable
-chmod +x "$GDRIVE_SCRIPT_PATH"
-
-# Run the download script
-python "$GDRIVE_SCRIPT_PATH" "$SIMPLE_ARCH_ISO_LINK" "$ISO_DOWNLOAD_PATH"
+# Use gdown to download the ISO
+gdown --id "$SIMPLE_ARCH_ISO_LINK" -O "$ISO_DOWNLOAD_PATH"
 if [ $? -ne 0 ]; then
-    error_exit "Failed to download SimpleArchISO. Check Google Drive link or script permissions."
+    error_exit "Failed to download SimpleArchISO using gdown. Check Google Drive ID or network."
 fi
 log "SimpleArchISO downloaded to $ISO_DOWNLOAD_PATH"
-
+ls -lh "$ISO_DOWNLOAD_PATH" # Keep this here to confirm the download size
 # --- Step 4: Flash the ISO to USB Drive ---
 log "Step 4: Flashing the ISO to your USB drive"
 
