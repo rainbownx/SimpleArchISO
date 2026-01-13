@@ -1,0 +1,66 @@
+# SimpleArchISO - A Custom Arch Linux ISO
+
+This repository contains files and instructions for building a custom Arch Linux ISO.
+The pre-built ISO is hosted on Google Drive due to its large file size.
+
+## Downloading the Custom Arch Linux ISO
+
+Due to its large file size (approximately 2.1 GB), the `simplearch.iso` file is hosted on Google Drive instead of directly in this GitHub repository. We've provided a dedicated Python script to simplify the download process for you.
+
+**The correct Google Drive ID for the ISO is: `1IcbAk4yFh9VodGMuYMKWUhMA6tBjUSfc`**
+
+Follow these steps to download the ISO:
+
+### 1. Get the Download Script
+
+The Python download script (`download-gdrive.py`) is located in a separate GitHub repository. You need to clone that repository to get the script onto your machine.
+
+```bash
+git clone [https://github.com/rainbownx/Google-drive-install-script.git](https://github.com/rainbownx/Google-drive-install-script.git)
+cd Google-drive-install-script
+
+You will now be inside the Google-drive-install-script directory.
+2. Install Python Prerequisites
+
+The download script requires the requests Python library to function.
+
+    For Arch Linux users:
+    Bash
+
+sudo pacman -S python-requests
+
+For other Linux distributions or general Python environments:
+Bash
+
+    pip install requests
+
+3. Download the ISO using the Script
+
+Once you are inside the Google-drive-install-script directory (from Step 1) and have installed the necessary Python library (Step 2), you can run the script to download the ISO.
+
+The full Google Drive shareable link for your simplearch.iso is:
+https://drive.google.com/file/d/1IcbAk4yFh9VodGMuYMKWUhMA6tBjUSfc/view?usp=sharing
+
+Important: You can specify where you want to save the ISO file on your system.
+
+    To download to your current directory (the Google-drive-install-script folder):
+    The file will be saved with its original filename (likely simplearch.iso) in the directory you are currently in.
+    Bash
+
+python download-gdrive.py "[https://drive.google.com/file/d/1IcbAk4yFh9VodGMuYMKWUhMA6tBjUSfc/view?usp=sharing](https://drive.google.com/file/d/1IcbAk4yFh9VodGMuYMKWUhMA6tBjUSfc/view?usp=sharing)"
+
+To download to a specific directory (e.g., your system's Downloads folder):
+The file will be saved with its original filename (likely simplearch.iso) in the specified directory.
+Bash
+
+python download-gdrive.py "[https://drive.google.com/file/d/1IcbAk4yFh9VodGMuYMKWUhMA6tBjUSfc/view?usp=sharing](https://drive.google.com/file/d/1IcbAk4yFh9VodGMuYMKWUhMA6tBjUSfc/view?usp=sharing)" ~/Downloads/
+
+To download with a specific filename and path (e.g., to /tmp/custom_arch.iso):
+This gives you full control over the file's name and location.
+Bash
+
+    python download-gdrive.py "[https://drive.google.com/file/d/1IcbAk4yFh9VodGMuYMKWUhMA6tBjUSfc/view?usp=sharing](https://drive.google.com/file/d/1IcbAk4yFh9VodGMuYMKWUhMA6tBjUSfc/view?usp=sharing)" /tmp/custom_arch.iso
+
+After running the command, the script will download the simplearch.iso file to your specified location.
+Then go to your specified location in a file manager and open the copied file and download the iso file via the website that the file is linked to.
+If you see a error messages saying "Google Drive can't scan this file for viruses." just click download anyway and start downloading the iso file.
